@@ -52,7 +52,7 @@ OV.Website = class {
             safetyMargin = 1;
         }
 
-        let contentWidth = windowWidth - menuWidth - safetyMargin;
+        let contentWidth = windowWidth - 2 * menuWidth - safetyMargin;
         let contentHeight = windowHeight - headerHeight - safetyMargin;
         this.parameters.menuDiv.outerHeight(contentHeight, true);
         this.parameters.introDiv.outerHeight(contentHeight, true);
@@ -154,7 +154,7 @@ OV.Website = class {
         this.ClearHashIfNotOnlyUrlList();
     }
 
-    LoadModelFromFileList(files) {
+    async LoadModelFromFileList(files) {
         let fileName = files[0].name;
         let fileExt = fileName.substring(fileName.lastIndexOf('.') + 1);
         if (fileExt == 'rsexp') {

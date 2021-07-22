@@ -42,6 +42,9 @@ OV.ThreeModelLoader = class {
         console.log(jsonData);
 
         for (let resultType in jsonData) {
+            if (resultType == "INTERNAL_COLOR_BAR") {
+                continue;
+            }
             let typeGroup = new OV.TreeViewGroupItem(resultType);
             website.menu.treeView.AddItem(typeGroup);
             for (let result in jsonData[resultType]) {
@@ -53,7 +56,27 @@ OV.ThreeModelLoader = class {
                     } catch {
                         console.log('This is the First Load!')
                     }
+                    console.log(jsonData['INTERNAL_COLOR_BAR'][result]);
                     website.ClearModel();
+                    let colorBar = document.getElementById('color_block_container');
+                    colorBar.innerHTML = '';
+                    for (let colorIdx in jsonData['INTERNAL_COLOR_BAR'][result]['colors']) {
+                        let div = document.createElement('div');
+                        let color = jsonData['INTERNAL_COLOR_BAR'][result]['colors'][colorIdx];
+                        let r = Math.floor(((color & 0xff0000) / 0xff00));
+                        let g = Math.floor((color & 0xff00) / 0xff);
+                        let b = Math.floor(color & 0xff);
+                        div.style = 'background: rgb(' + [r, g, b].join(',') + ')';
+                        let step = jsonData['INTERNAL_COLOR_BAR'][result]['maxValue'] - jsonData['INTERNAL_COLOR_BAR'][result]['minValue'];
+                        step /= jsonData['INTERNAL_COLOR_BAR'][result]['colors'].length;
+                        let value = jsonData['INTERNAL_COLOR_BAR'][result]['minValue'] + step * colorIdx
+                        div.innerHTML = value;
+                        console.log(div);
+                        colorBar.appendChild(div);
+                    }
+                    let unit = document.createElement('div');
+                    unit.innerHTML = jsonData['INTERNAL_COLOR_BAR'][result]['unit'];
+                    colorBar.appendChild(unit);
                     for (let mesh in jsonData[resultType][result]) {
                         console.log(website);
                         try {
