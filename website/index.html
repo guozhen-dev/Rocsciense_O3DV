@@ -99,71 +99,14 @@
                     introDiv: $('#intro'),
                     menuDiv: $('#main_menu'),
                     viewerDiv: $('#main_viewer'),
-                    fileInput: $('#open_file')
+                    fileInput: $('#open_file'),
+                    colorBarDiv: $('#color_bar')
                 });
                 website.Load();
                 let model_info; 
                 let model_index = {} ; 
-                
-                // readTextFile('../data.json', function(text) {
-                //     let data = JSON.parse(text);
-                //     for (let resultType in data){
-                //         let typeGroup = new OV.TreeViewGroupItem(resultType);
-                //         website.menu.treeView.AddItem(typeGroup)
-                //         for (let result in data[resultType]){
-                //             let btnitem = new OV.TreeViewButtonItem(result)
-                //             let testmenubutton = new OV.TreeViewButton('assets/images/toolbar/open.svg');
-                //             testmenubutton.OnClick(async function() {
-                //                 try{
-                //                     visibilityGroup.GetChildrenDiv().empty()
-                //                 }catch {
-                //                     console.log('This is the First Load!')
-                //                 } 
-                //                 website.ClearModel();
-                //                 for (let mesh in data[resultType][result]){
-                //                     try{
-                //                         model_index[mesh] = [website.menu.modelData.meshDataArr.length]
-                //                     }catch{
-                //                         model_index[mesh] = [0]
-                //                     }
-                //                     let visibilityBtn = new OV.TreeViewButton('assets/images/toolbar/open.svg');
-                //                     let visibilityBtnItem = new OV.TreeViewButtonItem(mesh);
-                //                     visibilityBtn.OnClick(function(){
-                //                         console.log(model_info); 
-                //                         for (let hi = model_index[mesh][0] ; hi < model_index[mesh][1] ; hi++){
-                //                             let meshData = model_info.GetMeshData(hi); 
-
-                //                             meshData.SetVisible (!meshData.IsVisible ());
-                                            
-                //                         }
-                //                         website.UpdateMeshesVisibility ();
-                //                     });
-                //                     visibilityBtnItem.AddButton(visibilityBtn);
-                //                     visibilityGroup.AddChild(visibilityBtnItem);
-                //                     await website.LoadModelFromUrlList(data[resultType][result][mesh]);
-                //                     model_info = website.menu.modelData; 
-                //                     model_index[mesh].push(website.menu.modelData.meshDataArr.length);
-                //                 }
-                //                 for (let i = 0 ; i < model_info.meshDataArr.length ; i++){
-                //                     website.viewer.geometry.modelMeshes[i].userData.originalMeshIndex = i ; 
-                //                 }
-                //             });
-                //             btnitem.AddButton(testmenubutton);
-                //             typeGroup.AddChild(btnitem);
-                //         }
-                        
-                //     }
-                //     let visibilityGroup = new OV.TreeViewGroupItem('Visibility Ctrl');
-                //     website.menu.treeView.AddItem(visibilityGroup)
-                    
-                // });
-
                 website.menu.Resize();
-                //website.LoadModelFromUrlList(['../Contour Plane%55bc97d1-2164-4e4c-9468-098fa384680f/SOLIDS_SIGMA_XX.obj'.replace('%','%25'), '../Contour Plane%55bc97d1-2164-4e4c-9468-098fa384680f/SOLIDS_SIGMA_XX.mtl'.replace('%','%25')], is);
                 website.ShowViewer(true);
-
-                //website.LoadModelFromUrlList(['www.baidu.com'],null)
-                //website.menu.clear() ; 
                 console.log(website);
 
             });
@@ -201,6 +144,7 @@
         <div class="main" id="main">
             <div class="main_menu only_full_width" id="main_menu"></div>
             <div class="main_viewer" id="main_viewer"></div>
+            <div class="color_bar" id="color_bar"></div>   
         </div>
         <div class="intro ov_thin_scrollbar" id="intro">
             <div class="intro_section only_full_width only_full_height">

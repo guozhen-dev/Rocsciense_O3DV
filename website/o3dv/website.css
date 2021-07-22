@@ -129,6 +129,12 @@ div.main_viewer
 	float: left;
 }
 
+div.color_bar
+{
+	float: right;
+	overflow: none;
+	
+}
 div.main_viewer canvas
 {
 	margin: 10px;
