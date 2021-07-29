@@ -38,9 +38,13 @@ OV.ThreeModelLoader = class {
         let zipInfo = await JSZip.loadAsync(files[0]);
         console.log(zipInfo);
         let jsonData = await zipInfo.files['data.json'].async("string");
+        let stageData = await zipInfo.files['stage.json'].async("string");
+        let colorData = await zipInfo.files['color.json'].async("string");
+        colorData = JSON.parse(colorData);
         jsonData = JSON.parse(jsonData);
+        stageData = JSON.parse(stageData); //Notice here the data itself was over written. 
         console.log(jsonData);
-
+        console.log(stageData);
         for (let resultType in jsonData) {
             if (resultType == "INTERNAL_COLOR_BAR") {
                 continue;
@@ -56,26 +60,39 @@ OV.ThreeModelLoader = class {
                     } catch {
                         console.log('This is the First Load!')
                     }
-                    console.log(jsonData['INTERNAL_COLOR_BAR'][result]);
+                    console.log(colorData[result]);
                     website.ClearModel();
                     let colorBar = document.getElementById('color_block_container');
                     colorBar.innerHTML = '';
-                    for (let colorIdx in jsonData['INTERNAL_COLOR_BAR'][result]['colors']) {
+                    let mindiv = document.createElement('div');
+                    mindiv.innerText = "Min Value = " + parseFloat(colorData[result]['minValue']);
+                    colorBar.appendChild(mindiv);
+                    for (let colorIdx in colorData[result]['colors']) {
+                        console.log(colorIdx);
+                        if (colorIdx == colorData[result]['colors'].length - 1) break;
                         let div = document.createElement('div');
-                        let color = jsonData['INTERNAL_COLOR_BAR'][result]['colors'][colorIdx];
+                        let color = colorData[result]['colors'][colorIdx].replace("#", "0x");
                         let r = Math.floor(((color & 0xff0000) / 0xff00));
                         let g = Math.floor((color & 0xff00) / 0xff);
                         let b = Math.floor(color & 0xff);
                         div.style = 'background: rgb(' + [r, g, b].join(',') + ')';
-                        let step = jsonData['INTERNAL_COLOR_BAR'][result]['maxValue'] - jsonData['INTERNAL_COLOR_BAR'][result]['minValue'];
-                        step /= jsonData['INTERNAL_COLOR_BAR'][result]['colors'].length;
-                        let value = jsonData['INTERNAL_COLOR_BAR'][result]['minValue'] + step * colorIdx
-                        div.innerHTML = value;
+                        let step = parseFloat(colorData[result]['maxValue']) - parseFloat(colorData[result]['minValue']);
+                        step /= colorData[result]['colors'].length;
+                        let value = parseFloat(colorData[result]['minValue']) + step * colorIdx
+                        if (colorIdx % Math.floor(colorData[result]['colors'].length / 10) == 0) {
+                            div.innerText = value;
+                        } else {
+                            div.innerText = " ";
+                        }
+                        div.className = "color_bar_item";
                         console.log(div);
                         colorBar.appendChild(div);
                     }
+                    let maxdiv = document.createElement('div');
+                    maxdiv.innerText = "Max Value = " + parseFloat(colorData[result]['maxValue']);
+                    colorBar.appendChild(maxdiv);
                     let unit = document.createElement('div');
-                    unit.innerHTML = jsonData['INTERNAL_COLOR_BAR'][result]['unit'];
+                    unit.innerHTML = colorData[result]['unit'];
                     colorBar.appendChild(unit);
                     for (let mesh in jsonData[resultType][result]) {
                         console.log(website);
@@ -108,6 +125,12 @@ OV.ThreeModelLoader = class {
                     for (let i = 0; i < website.modelInfo.meshDataArr.length; i++) {
                         website.viewer.geometry.modelMeshes[i].userData.originalMeshIndex = i;
                     }
+                    let stageDiv = document.createElement('div');
+                    stageDiv.innerText = stageData['stage'];
+                    stageDiv.id = "stage_info";
+                    stageDiv.className = "stage_info";
+                    let mainViewer = document.getElementById("main_viewer");
+                    mainViewer.appendChild(stageDiv);
 
 
                 });

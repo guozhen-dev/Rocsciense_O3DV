@@ -108,11 +108,21 @@ div.main_viewer {
     float: left;
 }
 
+div.stage_info {
+    text-align: center;
+}
+
 div.color_bar {
     width: 240px;
     margin: 10px 0px 10px 10px;
     overflow: none;
     float: right;
+    /*border: 1px solid #dddddd;*/
+}
+
+div.color_bar_item {
+    width: 240px;
+    height: 20px;
     /*border: 1px solid #dddddd;*/
 }
 

@@ -47,6 +47,7 @@ OV.Website = class {
 
         let menuWidth = 0;
         let safetyMargin = 0;
+        let marginForViewerHeight = 20; // Leave some space for the displaying the stage. 
         if (!OV.IsSmallWidth()) {
             menuWidth = parseInt(this.parameters.menuDiv.outerWidth(true), 10);
             safetyMargin = 1;
@@ -58,7 +59,7 @@ OV.Website = class {
         this.parameters.introDiv.outerHeight(contentHeight, true);
 
         this.menu.Resize();
-        this.viewer.Resize(contentWidth, contentHeight);
+        this.viewer.Resize(contentWidth, contentHeight - marginForViewerHeight);
     }
 
     ShowViewer(show) {
