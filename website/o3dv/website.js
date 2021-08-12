@@ -135,7 +135,7 @@ OV.Website = class {
     UpdateMeshesVisibility() {
         let obj = this;
         this.viewer.SetMeshesVisibility(function(meshUserData) {
-            console.log(meshUserData);
+            //console.log(meshUserData);
             return obj.menu.IsMeshVisible(meshUserData.originalMeshIndex);
         });
     }

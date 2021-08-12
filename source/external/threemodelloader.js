@@ -33,7 +33,7 @@ OV.ThreeModelLoader = class {
 
 
     async LoadFromRSExport(files, settings, website) {
-        website.menu.treeView.Clear();
+        //website.menu.treeView.Clear();
         let obj = this;
         // this.callbacks.onLoadStart();
         let zipInfo = await JSZip.loadAsync(files[0]);
@@ -118,10 +118,10 @@ OV.ThreeModelLoader = class {
                         let visibilityBtnItem = new OV.TreeViewButtonItem(mesh);
                         visibilityBtn.OnClick(function() {
                             for (let hi = website.modelIndex[mesh][0]; hi < website.modelIndex[mesh][1]; hi++) {
+                                console.log(hi);
                                 let meshData = website.modelInfo.GetMeshData(hi);
-
                                 meshData.SetVisible(!meshData.IsVisible());
-
+                                console.log(meshData);
                             }
                             website.UpdateMeshesVisibility();
                         });
@@ -135,19 +135,22 @@ OV.ThreeModelLoader = class {
                         website.modelIndex[mesh].push(website.menu.modelData.meshDataArr.length);
                         console.log(website.modelIndex);
                     }
+                    for (let i = 0; i < website.modelInfo.meshDataArr.length; i++) {
+                        website.viewer.geometry.modelMeshes[i].userData.originalMeshIndex = i;
+                    }
                     let stageDiv = document.createElement('div');
                     stageDiv.innerText = stageData['stage'];
                     stageDiv.id = "stage_info";
                     stageDiv.className = "stage_info";
                     let mainViewer = document.getElementById("main_viewer");
                     mainViewer.appendChild(stageDiv);
-
-
                 });
                 btnItem.AddButton(btn);
                 typeGroup.AddChild(btnItem);
+
             }
         }
+
         let visibilityGroup = new OV.TreeViewGroupItem('Visibility Ctrl');
         website.menu.treeView.AddItem(visibilityGroup)
     }
