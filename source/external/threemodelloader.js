@@ -53,7 +53,7 @@ OV.ThreeModelLoader = class {
             if (resultType == "INTERNAL_COLOR_BAR") {
                 continue;
             }
-            let typeGroup = new OV.TreeViewGroupItem(resultType);
+            let typeGroup = new OV.TreeViewGroupItem(resultType, 'assets/images/tree/details.svg');
             website.menu.treeView.AddItem(typeGroup);
             for (let result in jsonData[resultType]) {
                 let btnItem = new OV.TreeViewButtonItem(result);
@@ -158,14 +158,17 @@ OV.ThreeModelLoader = class {
                     website.viewer.orientationGizmo = new OrientationGizmo(website.viewer.camera, { size: 98, padding: 8 });
                     document.getElementById("main_viewer").appendChild(website.viewer.orientationGizmo);
                     website.Resize();
+                    visibilityGroup.ShowChildren(true);
+                    typeGroup.ShowChildren(false);
                 });
                 btnItem.AddButton(btn);
                 typeGroup.AddChild(btnItem);
 
             }
-        }
+            typeGroup.ShowChildren(true);
 
-        let visibilityGroup = new OV.TreeViewGroupItem('Visibility Ctrl');
+        }
+        let visibilityGroup = new OV.TreeViewGroupItem('Visibility Ctrl', 'assets/images/tree/visible.svg');
         website.menu.treeView.AddItem(visibilityGroup)
     }
 

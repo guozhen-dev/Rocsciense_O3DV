@@ -28,6 +28,12 @@ OV.TreeViewButton = class {
             this.domElement.click(this.clickHandler);
         }
     }
+
+    Click() {
+        if (this.clickHandler !== null) {
+            this.domElement.click(this.clickHandler);
+        }
+    }
 };
 
 OV.TreeViewItem = class {
