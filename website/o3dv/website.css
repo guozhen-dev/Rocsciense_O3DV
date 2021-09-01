@@ -16,6 +16,21 @@ body {
     overflow: hidden;
 }
 
+orientation-gizmo:hover {
+    background: rgba(255, 255, 255, .2);
+    border-radius: 100%;
+    cursor: pointer;
+}
+
+orientation-gizmo {
+    border: none;
+    float: right;
+}
+
+.Gizmo {
+    broder: none;
+}
+
 a {
     color: #3393bd;
     text-decoration: none;
@@ -110,6 +125,8 @@ div.main_viewer {
 
 div.stage_info {
     text-align: center;
+    bottom: 0;
+    position: absolute;
 }
 
 div.color_bar {
@@ -132,10 +149,11 @@ div.color_title {
 }
 
 div.main_viewer canvas {
-    margin: 10px;
+    margin: 0px;
     border: 1px solid #dddddd;
     outline: none;
     display: block;
+    position: absolute;
 
 }
 

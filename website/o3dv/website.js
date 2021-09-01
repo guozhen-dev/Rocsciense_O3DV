@@ -47,6 +47,7 @@ OV.Website = class {
 
         let menuWidth = 0;
         let safetyMargin = 0;
+        let gizmoSize = 100;
         let marginForViewerHeight = 20; // Leave some space for the displaying the stage. 
         if (!OV.IsSmallWidth()) {
             menuWidth = parseInt(this.parameters.menuDiv.outerWidth(true), 10);
@@ -58,8 +59,15 @@ OV.Website = class {
         this.parameters.menuDiv.outerHeight(contentHeight, true);
         this.parameters.introDiv.outerHeight(contentHeight, true);
 
+
         this.menu.Resize();
         this.viewer.Resize(contentWidth, contentHeight - marginForViewerHeight);
+        let main_viewer = document.getElementById("main_viewer");
+        main_viewer.style.width = contentWidth - gizmoSize + "px";
+        main_viewer.style.height = contentHeight - marginForViewerHeight + "px";
+        let stageDiv = document.getElementById("stage_info");
+        if (stageDiv)
+            stageDiv.style.width = contentWidth + "px";
     }
 
     ShowViewer(show) {

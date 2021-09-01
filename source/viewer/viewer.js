@@ -131,6 +131,7 @@ OV.Viewer = class {
         this.light = null;
         this.navigation = null;
         this.upVector = null;
+        this.orientationGizmo = null;
         this.settings = {
             animationSteps: 40
         };
@@ -265,6 +266,8 @@ OV.Viewer = class {
         let lightDir = OV.SubCoord3D(navigationCamera.eye, navigationCamera.center);
         this.light.position.set(lightDir.x, lightDir.y, lightDir.z);
         this.renderer.render(this.scene, this.camera);
+        if (this.orientationGizmo)
+            this.orientationGizmo.update();
     }
 
     AddMeshes(meshes) {

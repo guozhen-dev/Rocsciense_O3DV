@@ -144,6 +144,10 @@ OV.ThreeModelLoader = class {
                     stageDiv.className = "stage_info";
                     let mainViewer = document.getElementById("main_viewer");
                     mainViewer.appendChild(stageDiv);
+                    // document.getElementsByTagName("")
+                    website.viewer.orientationGizmo = new OrientationGizmo(website.viewer.camera, { size: 98, padding: 8 });
+                    document.getElementById("main_viewer").appendChild(website.viewer.orientationGizmo);
+                    website.Resize();
                 });
                 btnItem.AddButton(btn);
                 typeGroup.AddChild(btnItem);
