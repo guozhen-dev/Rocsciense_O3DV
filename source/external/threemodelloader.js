@@ -114,14 +114,24 @@ OV.ThreeModelLoader = class {
                         } catch {
                             website.modelIndex[mesh] = [0]
                         }
-                        let visibilityBtn = new OV.TreeViewButton('assets/images/toolbar/open.svg');
+                        let visibilityBtn = new OV.TreeViewButton('assets/images/tree/visible.svg');
                         let visibilityBtnItem = new OV.TreeViewButtonItem(mesh);
                         visibilityBtn.OnClick(function() {
+                            let currentVis = true;
                             for (let hi = website.modelIndex[mesh][0]; hi < website.modelIndex[mesh][1]; hi++) {
                                 console.log(hi);
                                 let meshData = website.modelInfo.GetMeshData(hi);
+                                if (meshData.IsVisible()) {
+                                    currentVis = false;
+                                }
                                 meshData.SetVisible(!meshData.IsVisible());
+
                                 console.log(meshData);
+                            }
+                            if (!currentVis) {
+                                visibilityBtn.SetImage('assets/images/tree/hidden.svg');
+                            } else {
+                                visibilityBtn.SetImage('assets/images/tree/visible.svg');
                             }
                             website.UpdateMeshesVisibility();
                         });
